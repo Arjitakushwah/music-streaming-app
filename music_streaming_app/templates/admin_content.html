@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if song %}{{song.Song_name}}{% else %}{{album.name}}{% endif %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">music streaming app</a>
+          <form class="d-flex"  action="{{ url_for('search') }}" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('admin_dashboard')}}">admin Home</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    {% if song %}
+    <div class="container">
+        <div class="card mt-5 mx-auto" style="max-width: 500px;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>{{song.Song_name}}</h2>
+                    <a href="{{ url_for('rate_song', song_id=song.id) }}" class="btn btn-primary">Rate this song</a>
+                </div>
+                <h5 class="card-subtitle mb-2 text-muted">Singer: {{ song.singer }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Album: {{ song.album.album_name }}</h6>
+                <audio controls>
+                    <source src="{{ url_for('static', filename=song.song_file) }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <h2 class="card-text mt-3">Lyrics</h2>
+                <pre class="card-text">{{ song.lyrics }}</pre>
+                <p class="card-text">Duration: {{ song.duration }} seconds</p>
+            </div>
+        </div>
+    </div>
+    {% elif creator %}
+    <h1>Creator Profile - {{ creator.user.name }}</h1>
+    <h2>Uploaded Songs:</h2>
+    {% if creator.songs %}
+    
+    <ul>
+        {% for song in creator.songs %}
+            <li><a href={{ url_for('song_page', song_id=song.id) }}>{{ song.Song_name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No Song found</p>
+    {% endif %}
+    <h2>Average Rating:{{ creator.rating }}</h2>
+    
+    {% else %}
+    <h1>{{ album.album_name }}</h1>
+    <p>Artist: {{ album.artist }}</p>
+    <p>Date Created: {{ album.date_created }}</p>
+
+    <h2>Songs in this Album</h2>
+    {% if album.songs %}
+    <ul>
+        {% for song in album.songs %}
+            <li>
+                <a href="{{ url_for('song_page', song_id=song.id) }}">{{ song.Song_name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No Song found</p>
+    {% endif %}
+    {% endif %}
+</body>
+</html>

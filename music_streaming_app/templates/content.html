@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if song %}songs{% else %}albums{% endif %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">music streaming app</a>
+          <form class="d-flex"  action="{{ url_for('search') }}" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('user_dashboard')}}">Home</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="{{url_for('user_profile')}}">Profile</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    {% if song %}
+    <h2>Songs </h2>
+    <ul>
+        {% for song in song %}
+            <li>
+                <a href="{{ url_for('song_page', song_id=song.id) }}">{{ song.Song_name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% elif creator %}
+    <h2>creators </h2>
+    <ul>
+        {% for creator in creator %}
+            <li>
+                <a href="{{ url_for('creator_profile', creator_id=creator.id) }}">{{ creator.user.username }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% elif album %}
+    <h2>Albums</h2>
+    <ul>
+        {% for album in album %}
+            <li>
+                <a href="{{ url_for('album_page', album_id=album.id) }}">{{ album.album_name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h4>No data exists</h4>
+    {% endif %}
+</body>
+</html>

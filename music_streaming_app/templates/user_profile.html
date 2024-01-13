@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">music streaming app</a>
+          <form class="d-flex"  action="{{ url_for('search') }}" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('user_dashboard')}}">Home</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link"  href={{'check_creator_account'}}>Creators Account</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container-fluid ">
+    <h1>User Profile</h1>
+    <p>Username: {{ user.username }}</p>
+    <p>Name: {{ user.name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <a href="{{url_for('edit_profile')}}" class="btn btn-secondary btn-sm">Edit Profile</a>
+    <a href="{{url_for('change_password')}}" class="btn btn-danger btn-sm">Change Password</a>
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>your playlists</h2>
+      <a href="{{url_for('create_playlist')}}" class="btn btn-info"> create playlist</a>
+  </div>
+
+    <ul>
+        {% for playlist in playlists %}
+            <li>
+                <a href="{{ url_for('playlist', playlist_id=playlist.id) }}">{{ playlist.name }}</a>
+                <a href="{{ url_for('edit_playlist', playlist_id=playlist.id) }}" class="btn btn-secondary btn-sm">Edit</a>
+                <a href="{{ url_for('delete_playlist', playlist_id=playlist.id) }}" class="btn btn-danger btn-sm">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>

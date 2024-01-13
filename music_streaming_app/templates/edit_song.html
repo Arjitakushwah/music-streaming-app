@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Song</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand">music streaming app</a>
+        <form class="d-flex" action="{{ url_for('search') }}" method="GET">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            name="query"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('upload_song')}}"
+              >Upload Song</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('user_dashboard')}}"
+              >User Account</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <h1>Edit Song</h1>
+      <form method="POST" action="{{ url_for('edit_song', song_id=song.id) }}">
+        <div class="form-group">
+          <label for="song_name">Song Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="song_name"
+            name="song_name"
+            value="{{ song.Song_name }}"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="artist_name">Artist Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="artist_name"
+            name="artist_name"
+            value="{{ song.singer }}"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="album_name">Album Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="album_name"
+            name="album_name"
+            value="{{ song.album.album_name }}"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="lyrics">Lyrics</label>
+          <textarea class="form-control" id="lyrics" name="lyrics" rows="4">
+            {{ song.lyrics }}</textarea>
+        </div>
+        <div class="form-group">
+          <label for="duration">Duration (in seconds)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="duration"
+            name="duration"
+            value="{{ song.duration }}"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </form>
+    </div>
+  </body>
+</html>

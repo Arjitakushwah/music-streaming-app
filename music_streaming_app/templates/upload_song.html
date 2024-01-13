@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Song</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="#">Music Streaming App</a>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('user_dashboard')}}">User Account</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('creator_dashboard')}}">Creator Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h1>Upload a Song</h1>
+        <p>Fill in the details and upload your song:</p>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="songname">Song Name</label>
+                <input type="text" class="form-control" id="songname" name="songname" required>
+            </div>
+            <div class="form-group">
+                <label for="artist">Artist Name</label>
+                <input type="text" class="form-control" id="artist" name="artist" required>
+            </div>
+            <div class="form-group">
+                <label for="albumname">Album Name</label>
+                <input type="text" class="form-control" id="albumname" name="albumname">
+            </div>
+            <div class="form-group">
+                <label for="lyrics">Lyrics</label>
+                <textarea class="form-control" id="lyrics" name="lyrics" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="duration">Duration (in seconds)</label>
+                <input type="number" class="form-control" id="duration" name="duration" required>
+            </div>
+            <div class="form-group">
+                <label for="songFile">Upload Song File</label>
+                <input type="file" class="form-control-file" id="songFile" name="songFile" accept=".mp3" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+</body>
+</html>

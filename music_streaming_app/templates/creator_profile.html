@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Creator Profile - {{ creator.user.username }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">music streaming app</a>
+          <form class="d-flex"  action="{{ url_for('search') }}" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+              <a class="nav-link"  href="{{url_for('user_dashboard')}}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('user_profile')}}">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      {% if creator.flagged %}
+      <p>This creator account has been flagged by admin</p>
+      <a   href="{{url_for('user_dashboard')}}">User dashboard</a>
+      {% else %}
+    <h2>Creator Profile - {{ creator.user.name }}</h2>
+      <h5>Bio - {{creator.bio}}</h5>
+    <h5>Uploaded Songs:</h5>
+    {% if creator.songs %}
+    <ul>
+        {% for song in creator.songs %}
+            <li><a href={{ url_for('song_page', song_id=song.id) }}>{{ song.Song_name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p> No song found by creator</p>
+    {% endif %}
+    <h5>Average Rating:{{ creator.rating }}</h5>
+    {% endif %}
+
+</body>
+</html>

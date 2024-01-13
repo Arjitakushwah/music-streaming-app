@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ album.album_name }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">music streaming app</a>
+          <form class="d-flex"  action="{{ url_for('search') }}" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('user_dashboard')}}">Home</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="{{url_for('user_profile')}}">Profile</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <h1>{{ album.album_name }}</h1>
+    <p>Artist: {{ album.artist }}</p>
+    <p>Date Created: {{ album.date_created }}</p>
+
+    <h2>Songs in this Album</h2>
+    {% if album.songs %}
+    <ul>
+        {% for song in album.songs %}
+            <li>
+                <a href="{{ url_for('song_page', song_id=song.id) }}">{{ song.Song_name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No Song Found</p>
+    {% endif %}
+</body>
+</html>

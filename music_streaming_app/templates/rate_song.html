@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rate this Song</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">music streaming app</a>
+          <form class="d-flex"  action="{{ url_for('search') }}" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('user_dashboard')}}">Home</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="{{url_for('user_profile')}}">profile</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <h1>Rate this Song</h1>
+    <p>Provide your rating for "{{ song.Song_name }}".</p>
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="rating">Rating:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="rating" id="rating1" value="1">
+                <label class="form-check-label" for="rating1">1 - Terrible</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="rating" id="rating2" value="2">
+                <label class="form-check-label" for="rating2">2 - Poor</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="rating" id="rating3" value="3">
+                <label class="form-check-label" for="rating3">3 - Average</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="rating" id="rating4" value="4">
+                <label class="form-check-label" for="rating4">4 - Good</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="rating" id="rating5" value="5">
+                <label class="form-check-label" for="rating5">5 - Excellent</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Rating</button>
+    </form>
+    <br>
+    <a href="{{ url_for('song_page', song_id=song.id) }}" class="btn btn-secondary"> Song Details</a>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Music Streaming App</title>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">music streaming app</a>
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+              <a class="nav-link"  href="{{ url_for('admin_login') }}">Admin Login</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container mt-5 text-center">
+        <h1>Welcome to Music Streaming App</h1>
+        <p>Discover and enjoy your favorite music!</p>
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <a href="{{ url_for('register') }}" class="btn btn-success btn-block mb-2">Register</a>
+                <a href="{{ url_for('login') }}" class="btn btn-primary btn-block mb-2">Login</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

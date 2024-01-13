@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Playlist</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">music streaming app</a>
+          <form class="d-flex"  action="{{ url_for('search') }}" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('user_dashboard')}}">Home</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="{{url_for('user_profile')}}">Profile</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <div class="container">
+        <h1>Edit Playlist</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="playlistName">Playlist Name</label>
+                <input type="text" class="form-control" id="playlistName" name="playlistName" value="{{ playlist.name }}" required>
+            </div>
+
+            <h2>Current Songs in Playlist:</h2>
+            {% if playlist.songs %}
+            <ul>
+                {% for song in playlist.songs %}
+                    <li>
+                        {{ song.Song_name }}
+                        <a href="{{ url_for('remove_song_from_playlist', playlist_id=playlist.id, song_id=song.id) }}">Remove</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No song added</p>
+            {% endif %}
+
+            <h2>Add Songs to Playlist:</h2>
+            {% if all_songs %}
+            <ul>
+                {% for song in all_songs %}
+                    <li>
+                        {{ song.Song_name }}
+                        <input type="checkbox" name="selected_songs" value="{{ song.id }}">
+                    </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No song found</p>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>

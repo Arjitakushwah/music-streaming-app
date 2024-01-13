@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">music streaming app</a>
+          <form class="d-flex"  action="{{ url_for('search') }}" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+              <a class="nav-link"  href={{'check_creator_account'}}>Creators Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('user_profile')}}">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <div class="container-fluid ">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Songs</h2>
+        <a href="{{url_for('display_content', type='song')}}" class="btn btn-info"> All Songs</a>
+    </div>
+        <div class="row">
+          {% if songs %}
+          {% for song in songs %}
+          {% if loop.index < 5 %}
+              <div class="col col-md-2">
+                  <div class="card" style="width: 14rem; height: 8rem;">
+                      <div class="card-body">
+                          <h5 class="card-title">{{ song.Song_name }}</h5>
+                          <a href="{{url_for('song_page', song_id=song.id)}}" class="card-link">Lyrics</a> 
+                      </div>
+                  </div>
+              </div>
+              {% endif %}
+          {% endfor %}
+          {% else %}
+          <p>No Song Found</p>
+          {% endif %}
+      </div>
+      <hr>
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>my playlists</h2>
+        <a href="{{url_for('create_playlist')}}" class="btn btn-info"> create playlist</a>
+    </div>
+        <div class="row">
+          {% if playlists %}
+          {% for playlist in playlists %}
+          {% if loop.index < 5 %}
+              <div class="col col-md-2">
+                  <div class="card" style="width: 14rem; height: 8rem;">
+                      <div class="card-body">
+                          <h5 class="card-title">{{ playlist.name }}</h5>
+                          <a href="{{url_for('playlist',playlist_id=playlist.id)}}" class="card-link">view playlist</a>
+                    
+                      </div>
+                  </div>
+              </div>
+              {% endif %}
+          {% endfor %}
+          {% else %}
+          <p>No Playlist Found</p>
+          {% endif %}
+      </div> 
+        
+        <hr>
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Albums</h2>
+          <a href="{{url_for('display_content', type='album')}}" class="btn btn-info"> All Albums</a>
+      </div>
+        <div class="row">
+          {% if albums %}
+          {% for album in albums %}
+          {% if loop.index < 5 %}
+              <div class="col col-md-2">
+                  <div class="card" style="width: 14rem; height: 8rem;">
+                      <div class="card-body">
+                          <h5 class="card-title">{{ album.album_name }}</h5>
+                          <a href="{{url_for('album_page', album_id=album.id)}}" class="card-link">songs</a>        
+                      </div>
+                  </div>
+              </div>
+              {% endif %}
+          {% endfor %}
+          {% else %}
+          <p>No Album Found</p>
+          {% endif %}
+      </div>
+      <hr>
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>creators</h2>
+          <a href="{{url_for('display_content', type='creator')}}" class="btn btn-info"> All creators</a>
+      </div>
+        <div class="row">
+          {% if creators %}
+          {% for creator in creators %}
+          {% if loop.index < 5 %}
+              <div class="col col-md-2">
+                  <div class="card" style="width: 14rem; height: 8rem;">
+                      <div class="card-body">
+                          <h5 class="card-title">{{ creator.user.name }}</h5>
+                          <a href="{{url_for('creator_profile', creator_id=creator.id)}}" class="card-link">creator profile</a>
+                      </div>
+                  </div>
+              </div>
+              {% endif %}
+          {% endfor %}
+          {% else %}
+          <p>No Creator Found</p>
+          {% endif %}
+      </div>  
+      </div>
+</body>
+</html>

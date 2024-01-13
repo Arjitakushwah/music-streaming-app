@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Confirmation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    {% if upload %}
+    <h1>Upload Successful</h1>
+    <p>Your song has been successfully uploaded.</p>
+    <a href="{{ url_for('creator_dashboard') }}">Go to Your Dashboard</a>
+    {% elif change_password %}
+    <h1>your password changed successfully</h1>
+    <a href="{{ url_for('user_profile') }}">Go to Your profile</a>
+    {% else %}
+    <h1>Registration Successful </h1>
+    <p>Your account has been successfully created.</p>
+    <a href="{{ url_for('login') }}">LOGIN</a>
+    {% endif %}
+</body>
+</html>

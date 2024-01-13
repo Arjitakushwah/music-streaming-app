@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">music streaming app</a>
+          <form class="d-flex"  action="{{ url_for('search') }}" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('user_dashboard')}}">Home</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="{{url_for('user_profile')}}">profile</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <h1>Search Results</h1>
+
+    <h2>Songs</h2>
+    {% if songs %}
+    <ul>
+        {% for song in songs %}
+            <li><a href="{{ url_for('song_page', song_id=song.id) }}">{{ song.Song_name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No song found</p>
+    {% endif %}
+    
+    <h2>Albums</h2>
+    {% if albums %}
+    <ul>
+        {% for album in albums %}
+            <li><a href="{{ url_for('album_page', album_id=album.id) }}">{{ album.album_name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No album found</p>
+    {% endif %}
+    
+    <h2>Creators</h2>
+    {% if creators %}
+    <ul>
+        {% for creator in creators %}
+            <li><a href="{{ url_for('creator_profile', creator_id= creator.id) }}">{{ creator.user.username }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No creator found</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">music streaming app</a>
+            <ul class="nav justify-content-end">
+              <li class="nav-item">
+                <a class="nav-link"  href="/">Logout</a>
+              </li>
+            </ul>
+          </div>
+    </nav>
+    <div class="container">
+        <h1>Admin's Dashboard</h1>
+        <br>
+        <div class="row">
+            <div class="col col-md-3">
+                <div class="card" style="width: 14rem; height: 8rem;">
+                    <div class="card-body">
+                        <h3 class="card-title">Normal Users</h3>
+                        <p> {{ users }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3">
+                <div class="card" style="width: 14rem; height: 8rem;">
+                    <div class="card-body">
+                        <h3 class="card-title">creators</h3>
+                        <p> {{ total_creators }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3">
+                <div class="card" style="width: 14rem; height: 8rem;">
+                    <div class="card-body">
+                        <h3 class="card-title">Total Songs</h3>
+                        <p> {{ total_songs }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3">
+                <div class="card" style="width: 14rem; height: 8rem;">
+                    <div class="card-body">
+                        <h3 class="card-title">Total Albums</h3>
+                        <p> {{ total_albums }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <br>
+            <h2>Total Songs</h2>
+        <ul>
+        {% for album in albums %}
+            <li>
+                <strong>{{ album.album_name }}</strong>
+                <a href="{{ url_for('delete_album', album_id=album.id) }}" class="btn btn-danger btn-sm">Delete Album</a>
+                <br>
+                <ul>
+                    {% for song in album.songs %}
+                        <li>
+                            <a href="{{ url_for('details', type='creator', type_id=song.id) }}">{{ song.Song_name }}</a>
+                            <a href="{{url_for('details', type='song', type_id=song.id)}}" class="btn btn-primary btn-sm">View Lyrics</a>
+                            <a href="{{ url_for('delete_song', song_id=song.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                        </li>
+                        <br>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        <br>
+        <h2>List of creators</h2>
+        <ul>
+            {% for creator in creators %}
+            <li>
+                <a href="{{url_for('details', type='creator', type_id=creator.id)}}">{{ creator.user.name }}</a> -
+                {{ creator.rating }}
+                {% if creator.flagged %}
+                <form method="POST" action="{{ url_for('whitelist_creator', creator_id=creator.id) }}" style="display: inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">whitelist Creator</button>
+                </form>
+                {% else %}
+                <form method="POST" action="{{ url_for('flag_creator', creator_id=creator.id) }}" style="display: inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">flag Creator</button>
+                </form>
+                {% endif %}
+            </li>
+            <br>
+            {% endfor %}
+        </ul>
+                    
+    </div>
+</body>
+</html>

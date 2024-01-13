@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator's Account</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel = "stylesheet" href= "static/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">music streaming app</a>
+          <form class="d-flex"  action="{{ url_for('search') }}" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+              <a class="nav-link"  href={{'user_dashboard'}}>User Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('user_profile')}}">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container full-height">
+        <div class="card mx-auto" style="width: 30rem;">
+            <div class="card-body">
+                <h1 class="card-title">Register as a Creator</h1>
+                <p class="card-text">Creators can share their music with the world. Join now to start creating and sharing your music!</p>
+                <br><br>
+                    <a href="{{ url_for('creator_register') }}">Register</a>
+                <br>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
